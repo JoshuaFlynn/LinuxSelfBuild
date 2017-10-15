@@ -1,6 +1,8 @@
 #!/bin/bash
 #Version 1.0
 
+[ $uid -ne 0 ] && { echo "Root is required to run the base build package installer."; exit 1; }
+
 #installpkg
 #removepkg
 
