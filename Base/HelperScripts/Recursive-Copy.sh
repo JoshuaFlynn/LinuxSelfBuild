@@ -1,13 +1,12 @@
 #!/bin/bash
 #Version 2.0 LFS edition
+#Updated to use export
 
-if (( $# < 2 )); then
+if (( $# != 2 )); then
 
     echo 'Arguments required:'
     echo '1. Source directory to recursively pass over'
     echo '2. Destination directory to recursively copy to'
-    echo '3. (Optional) directory that this script itself is located in (used for handling relative recursion issues).'
-    echo '4. (Optional) print characters prior to directory and filename display (used for visual formatting)'
     exit 1;
 
 fi
@@ -15,39 +14,24 @@ fi
 SOURCE_DIR=$1
 TARGET_DIR=$2
 
-#See if an optional third argument has been provided (IE the script directory)
-if (( $# < 3 )); then
+#See if the script directory variable is already set:
+if [ -z "$SCRIPT_DIR" ]; then
 
     #If not, get it
     #This extracts the absolute directory of the script
     pushd $( dirname "$0"  ) > /dev/null
-    SCRIPT_DIR=$( pwd -P )
+    export SCRIPT_DIR=$( pwd -P )
     popd > /dev/null
-
-else
-
-    #If so, check it and set it
-    if [ -d "$3" ]; then
-
-        SCRIPT_DIR=$3
-
-    else
-
-        echo "Supplied script directory is not actually a directory: $3"
-        exit 2;
-
-    fi
 
 fi
 
-#See if any print chars for readability have been supplied, if not, set it to defaults
-if (( $# > 3 )); then
+if [ -z "$PRINT_CHARS" ]; then
 
-    PRINT_CHARS=$4
+    export PRINT_CHARS="    "
 
 else
 
-    PRINT_CHARS=""
+    export PRINT_CHARS="$PRINT_CHARS    "
 
 fi
 
@@ -82,7 +66,7 @@ for f in *; do
         
         echo "$PRINT_CHARS/$f"
         #Rerun this script again, passing the directory
-        bash "$FULL_SCRIPT" "$SOURCE_DIR/$f" "$TARGET_DIR/$f" "$SCRIPT_DIR" "$PRINT_CHARS    "
+        bash "$FULL_SCRIPT" "$SOURCE_DIR/$f" "$TARGET_DIR/$f"
 
     elif [ -f "$f" ]
     then
