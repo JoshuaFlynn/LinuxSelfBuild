@@ -30,27 +30,9 @@ installpkg tar
 installpkg texinfo
 installpkg xz-utils
 
+TARGET_DIR="./HelperScripts"
+
 #Debian
 
-apt-get install -y bash
-apt-get install -y binutils
-apt-get install -y bison
-apt-get install -y bzip2
-apt-get install -y coreutils
-apt-get install -y diffutils
-apt-get install -y findutils
-apt-get install -y gawk
-apt-get install -y gcc
-apt-get install -y g++
-apt-get install -y glibc
-apt-get install -y grep
-apt-get install -y gzip
-apt-get install -y m4
-apt-get install -y make
-apt-get install -y patch
-apt-get install -y perl
-apt-get install -y sed
-apt-get install -y tar
-apt-get install -y texinfo
-apt-get install -y xz-utils
+bash "$TARGET_DIR/Bash-Apt-Install.sh" bash binutils bison bzip2 coreutils diffutils findutils gawk gcc g++ glibc grep gzip m4 make patch perl sed tar texinfo xz-utils
 
