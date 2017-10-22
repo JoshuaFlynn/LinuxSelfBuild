@@ -1,5 +1,5 @@
 #!/bin/bash
-#Version 1.0
+#Version 1.1
 
 [ $uid -ne 0 ] && { echo "Root is required to run the base build package installer."; exit 1; }
 
@@ -30,7 +30,9 @@ installpkg tar
 installpkg texinfo
 installpkg xz-utils
 
-TARGET_DIR="./HelperScripts"
+_user=$(logname)
+
+TARGET_DIR="/home/$_user/LinuxSelfBuild/Base/HelperScripts"
 
 #Debian
 
