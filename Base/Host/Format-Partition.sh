@@ -23,7 +23,7 @@ apt-get update
 _TAR_DIR="/home/$_user/LinuxSelfBuild/Base/"
 
 #Ensure all the utilities we need are installed
-bash "$_TAR_DIR/HelperScripts/Bash-Apt-Install.sh" fdisk grep
+bash "$_TAR_DIR/HelperScripts/Bash-Apt-Install.sh" util-linux grep
 
 #Get the target drive name
 _TARGET_DRIVE=$1
